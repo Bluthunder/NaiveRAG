@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 System Verification Test
 Tests all components and checks if documents are ready for ingestion
@@ -27,7 +26,7 @@ def test_imports():
         from src.rag_pipeline import LegalRAGPipeline
         print("✓ rag_pipeline module")
         
-        from src.document_processor import DocumentProcessor
+        from src.document_processing import DocumentProcessor
         print("✓ document_processor module")
         
         return True
