@@ -1,0 +1,84 @@
+.venv 
+.venv/
+
+.pycache*
+
+model
+uv.lock 
+
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Model files and caches
+model/
+.cache/
+*.pth
+*.bin
+*.onnx
+
+# Data files (if you don't want to commit them)
+data/*.pdf
+data/*.docx
+data/*.txt
+# Uncomment below to keep example data
+# !data/examples/**
+
+# Qdrant database
+qdrant_data/
+qdrant_storage/
+
+# Logs
+*.log
+logs/
+
+# Test files
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environment variables
+.env
+.env.local
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+*.ipynb
+
+# System files
+Thumbs.db
+
+.DS_Store
