@@ -181,7 +181,7 @@ class RAGLLMClient:
             context_str += f"\n\nContext {i}{source_info}:\n{ctx}"
         
         # System prompt for legal RAG
-        system_prompt = """You are a legal assistant AI specializing in Indian law. 
+        system_prompt = """You are a real estate assistant AI specializing in real estate law. 
 Your role is to provide accurate, helpful information based on the legal documents provided.
 
 Guidelines:
@@ -206,7 +206,7 @@ Answer:"""
         response = self.llm.generate(
             prompt=user_prompt,
             system_prompt=system_prompt,
-            temperature=0.3  # Lower temperature for factual responses
+            temperature=0.2  # Lower temperature for factual responses
         )
         
         return response
@@ -224,14 +224,13 @@ Key Points:"""
     
     def summarize_judgment(self, judgment: str) -> str:
         """Summarize a legal judgment."""
-        system = "You are an expert at summarizing legal judgments clearly and accurately."
-        
-        prompt = f"""Summarize this legal judgment, including:
+        system = "You are an expert at summarizing real estate documents clearly and accurately."
+
+        prompt = f"""Summarize this real estate documents, including:
 1. Case name and citation (if mentioned)
 2. Key facts
-3. Legal issues
-4. Court's decision
-5. Important legal principles
+3. Real estate clauses
+4. Important real estate principles
 
 Judgment:
 {judgment}
