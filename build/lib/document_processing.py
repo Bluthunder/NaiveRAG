@@ -9,10 +9,14 @@ try:
     PDFPLUMBER_AVAILABLE = True
 except ImportError:
     PDFPLUMBER_AVAILABLE = False
-    try:
-        import pypdf
-    except ImportError:
-        print("Install pypdf or pdfplumber: pip install pdfplumber")
+    print("pdfplumber not found, falling back to pypdf")
+
+try:
+    import pypdf
+    PYPDF_AVAILABLE = True
+except ImportError:
+    PYPDF_AVAILABLE = False
+    print("Warning: Install PDF library: pip install pdfplumber")
 
 # For DOCX processing
 try:
@@ -54,13 +58,50 @@ class DocumentProcessor:
         self.min_chunk_size = min_chunk_size
     
     def load_pdf(self, file_path: str) -> str:
-        """Extract text from PDF."""
+        """Extract text from PDF with table support."""
+        if PDFPLUMBER_AVAILABLE:
+            return self._load_pdf_with_pdfplumber(file_path)
+        elif PYPDF_AVAILABLE:
+            return self._load_pdf_with_pypdf(file_path)
+        else:
+            raise ImportError("No PDF library available. Install: pip install pdfplumber")
+    
+    def _load_pdf_with_pdfplumber(self, file_path: str) -> str:
+        """Extract text and tables from PDF using pdfplumber."""
+        text_content = []
+        
+        with pdfplumber.open(file_path) as pdf:
+            for page_num, page in enumerate(pdf.pages, 1):
+                # Extract text
+                text = page.extract_text()
+                if text and text.strip():
+                    text_content.append(text)
+                
+                # Extract tables
+                tables = page.extract_tables()
+                for table_idx, table in enumerate(tables):
+                    if table:
+                        # Convert table to structured text
+                        table_text = "\n".join([
+                            " | ".join(str(cell) if cell else "" for cell in row)
+                            for row in table if any(cell for cell in row)
+                        ])
+                        if table_text.strip():
+                            text_content.append(f"\n[TABLE {page_num}-{table_idx+1}]\n{table_text}\n")
+        
+        return "\n\n".join(text_content)
+    
+    def _load_pdf_with_pypdf(self, file_path: str) -> str:
+        """Extract text from PDF using pypdf (fallback)."""
+        import pypdf
         text_content = []
         
         with open(file_path, 'rb') as file:
             pdf_reader = pypdf.PdfReader(file)
             for page in pdf_reader.pages:
-                text_content.append(page.extract_text())
+                text = page.extract_text()
+                if text and text.strip():
+                    text_content.append(text)
         
         return "\n\n".join(text_content)
     

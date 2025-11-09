@@ -5,18 +5,22 @@ from dataclasses import dataclass
 
 # For PDF processing
 try:
+    from unstructured.partition.auto import partition
+    UNSTRUCTURED_AVAILABLE = True
+except ImportError:
+    UNSTRUCTURED_AVAILABLE = False
+
+try:
     import pdfplumber
     PDFPLUMBER_AVAILABLE = True
 except ImportError:
     PDFPLUMBER_AVAILABLE = False
-    print("pdfplumber not found, falling back to pypdf")
 
 try:
     import pypdf
     PYPDF_AVAILABLE = True
 except ImportError:
     PYPDF_AVAILABLE = False
-    print("Warning: Install PDF library: pip install pdfplumber")
 
 # For DOCX processing
 try:
