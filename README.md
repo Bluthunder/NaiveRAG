@@ -89,17 +89,17 @@ cp /path/to/your/documents/*.pdf data/
 
 ```bash
 # Process and embed all documents from data/ folder
-python ingest_documents.py
+uv run python ingest_documents.py
 ```
 
 ### 5. Query the System
 
 ```bash
 # Interactive mode
-python main.py
+uv run python main.py
 
 # Single query
-python main.py --query "What is the punishment for theft?"
+uv run python main.py --query "What is the punishment for theft?"
 ```
 
 ## 📖 Usage Examples
@@ -107,7 +107,7 @@ python main.py --query "What is the punishment for theft?"
 ### Interactive Mode
 
 ```bash
-$ python main.py
+$ uv run python main.py
 
 🏛️  Legal RAG System
 ============================================================
@@ -143,7 +143,7 @@ receive compensation for any loss or damage caused to him thereby...
 ```python
 # Use the ingestion script for batch processing
 # Command line:
-python ingest_documents.py --data-dir data/ --chunk-size 500
+uv run python ingest_documents.py --data-dir data/ --chunk-size 500
 
 # Or programmatically:
 from src.document_processor import DocumentProcessor
